@@ -1,8 +1,11 @@
 package com.steven.hicks.handlers;
 
 import com.steven.hicks.beans.Artist;
+import com.steven.hicks.beans.Setlist;
 import com.steven.hicks.logic.dao.ArtistDAO;
+import com.steven.hicks.logic.dao.SetlistDAO;
 import com.steven.hicks.logic.queryBuilders.ArtistQueryBuilder;
+import com.steven.hicks.logic.queryBuilders.SetlistQueryBuilder;
 import com.steven.hicks.searchForms.ArtistSearchForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,8 +48,11 @@ public class ArtistSearchHandler
     public String artist(@RequestParam(name = "mbid") String mbid, Model model)
     {
         Artist artist = ArtistDAO.getArtist(mbid);
-
         model.addAttribute("artist", artist);
+
+        SetlistQueryBuilder queryBuilder = new SetlistQueryBuilder.Builder().artistMbid(mbid).build();
+        List<Setlist> setlists = SetlistDAO.search(queryBuilder);
+        model.addAttribute("setlists", setlists);
 
         return "artist";
     }
