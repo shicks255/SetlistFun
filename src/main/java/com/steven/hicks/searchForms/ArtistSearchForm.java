@@ -1,8 +1,9 @@
-package com.steven.hicks;
+package com.steven.hicks.searchForms;
 
+import com.steven.hicks.interfaces.SearchForm;
 import com.steven.hicks.logic.queryBuilders.ArtistQueryBuilder;
 
-public class ArtistQuerySearcher
+public class ArtistSearchForm implements SearchForm
 {
     private ArtistQueryBuilder m_queryBuilder;
     private String name = "";
