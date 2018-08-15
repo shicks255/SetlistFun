@@ -4,45 +4,32 @@
 
 <html>
 <head>
-    <%--<title>${setlist.name} Setlists</title>--%>
+    <title>Setlist ${setlist.info}</title>
 </head>
-
 <body>
-<%--<h2>${artist.name} Setlists</h2>--%>
 
 <table>
-
     <tr>
-        <td>Date</td>
-        <td>Venue</td>
-        <td>City</td>
-        <td>State</td>
+        <td><b>Song</b></td>
     </tr>
 
-    <%--<c:forEach var="setlist" items="${setlists}">--%>
-        <%--<tr>--%>
-            <%--<td>--%>
-                <%--<a href="/setlist?id=${setlist.id}">--%>
-                    <%--<c:out value="${setlist.eventDate}"/>--%>
-                <%--</a>--%>
-            <%--</td>--%>
-            <%--<td>--%>
-                <%--<a href="/setlist?id=${setlist.id}">--%>
-                    <%--<c:out value="${setlist.venue.name}"/>--%>
-                <%--</a>--%>
-            <%--</td>--%>
-            <%--<td>--%>
-                <%--<a href="/setlist?id=${setlist.id}">--%>
-                    <%--<c:out value="${setlist.venue.city.name}"/>--%>
-                <%--</a>--%>
-            <%--</td>--%>
-            <%--<td>--%>
-                <%--<a href="/setlist?id=${setlist.id}">--%>
-                    <%--<c:out value="${setlist.venue.city.state}"/>--%>
-                <%--</a>--%>
-            <%--</td>--%>
-        <%--</tr>--%>
-    <%--</c:forEach>--%>
+    <c:set var="sets" value="${setlist.sets}"/>
+    <c:forEach var="set" items="${sets}">
+        <c:set var="s" value="${set.set}"/>
+        <c:forEach var="x" items="${s}">
+            <c:if test="${!empty x.encore}">
+                <tr>
+                    <td><b>Encore ${x.encore}</b></td>
+                </tr>
+            </c:if>
+            <c:forEach var="song" items="${x.song}">
+                <tr>
+                    <td><c:out value="${song.name}"/></td>
+                </tr>
+            </c:forEach>
+        </c:forEach>
+
+    </c:forEach>
 
 </table>
 
