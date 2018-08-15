@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/artist")
-public class ArtistSearchHandler
+public class ArtistHandler
 {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchArtist(@ModelAttribute("artistSearcher")ArtistSearchForm searchForm,
