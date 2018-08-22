@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
 public interface IHandler<T extends SearchForm>
 {
 
-    <T extends SearchForm> String search(T searchForm, BindingResult result, ModelMap model);
+    public String search(Class<? extends SearchForm> searchForm, BindingResult result, ModelMap model);
 
 
 }

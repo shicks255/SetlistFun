@@ -18,7 +18,7 @@
         <td>City</td>
         <td>State</td>
     </tr>
-
+b
     <c:forEach var="setlist" items="${setlists}">
         <tr>
             <td>
@@ -27,7 +27,7 @@
                 </a>
             </td>
             <td>
-                <a href="/setlist?id=${setlist.id}">
+                <a href="/venue?id=${setlist.venue.id}">
                     <c:out value="${setlist.venue.name}"/>
                 </a>
             </td>

@@ -2,7 +2,6 @@ package com.steven.hicks.handlers;
 
 import com.steven.hicks.beans.Artist;
 import com.steven.hicks.beans.Setlist;
-import com.steven.hicks.interfaces.IHandler;
 import com.steven.hicks.logic.dao.ArtistDAO;
 import com.steven.hicks.logic.dao.SetlistDAO;
 import com.steven.hicks.logic.queryBuilders.ArtistQueryBuilder;
@@ -21,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/artist")
-public class ArtistHandler implements IHandler
+public class ArtistHandler
 {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@ModelAttribute("artistSearcher")ArtistSearchForm searchForm,
