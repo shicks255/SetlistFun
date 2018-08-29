@@ -1,7 +1,7 @@
 package com.steven.hicks.handlers;
 
 import com.steven.hicks.beans.Setlist;
-import com.steven.hicks.logic.dao.SetlistDAO;
+import com.steven.hicks.logic.dao.SetlistSearcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,8 @@ public class SetlistHandler
     @RequestMapping(method = RequestMethod.GET)
     public String setlist(@RequestParam(name = "id")String setlistId, Model model)
     {
-        Setlist setlist = SetlistDAO.getSetlist(setlistId);
+        SetlistSearcher setlistSearcher = new SetlistSearcher();
+        Setlist setlist = setlistSearcher.get(setlistId);
 
         model.addAttribute("setlist", setlist);
 

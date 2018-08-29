@@ -17,7 +17,7 @@
         <td>Stuff</td>
     </tr>
 
-    <c:forEach var="artist" items="${artistList}">
+    <c:forEach var="artist" items="${artistList.artist}">
         <tr>
             <td>
                 <a href="/artist?mbid=${artist.mbid}">

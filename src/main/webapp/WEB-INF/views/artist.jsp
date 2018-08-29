@@ -19,7 +19,7 @@
         <td>State</td>
     </tr>
 b
-    <c:forEach var="setlist" items="${setlists}">
+    <c:forEach var="setlist" items="${setlistList.setlist}">
         <tr>
             <td>
                 <a href="/setlist?id=${setlist.id}">

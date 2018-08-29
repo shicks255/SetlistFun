@@ -1,9 +1,11 @@
 package com.steven.hicks.handlers;
 
 import com.steven.hicks.beans.Artist;
-import com.steven.hicks.beans.Setlist;
-import com.steven.hicks.logic.dao.ArtistDAO;
-import com.steven.hicks.logic.dao.SetlistDAO;
+import com.steven.hicks.beans.ArtistList;
+import com.steven.hicks.beans.SetlistList;
+import com.steven.hicks.interfaces.IHandler;
+import com.steven.hicks.logic.dao.ArtistSearcher;
+import com.steven.hicks.logic.dao.SetlistSearcher;
 import com.steven.hicks.logic.queryBuilders.ArtistQueryBuilder;
 import com.steven.hicks.logic.queryBuilders.SetlistQueryBuilder;
 import com.steven.hicks.searchForms.ArtistSearchForm;
@@ -16,14 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/artist")
-public class ArtistHandler
+public class ArtistHandler implements IHandler
 {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(@ModelAttribute("artistSearcher")ArtistSearchForm searchForm,
+    public String search(@ModelAttribute("artistSearcher") ArtistSearchForm searchForm,
                                BindingResult result, ModelMap model)
     {
         //:todo make search error page
@@ -36,8 +36,8 @@ public class ArtistHandler
                 .tmId(searchForm.getTmId())
                 .build();
 
-        List<Artist> artistList = ArtistDAO.search(queryBuilder);
-
+        ArtistSearcher searcher = new ArtistSearcher();
+        ArtistList artistList = searcher.searchAndGet(queryBuilder, 1);
 
         model.addAttribute("artistList", artistList);
 
@@ -47,12 +47,17 @@ public class ArtistHandler
     @RequestMapping(method = RequestMethod.GET)
     public String artist(@RequestParam(name = "mbid") String mbid, Model model)
     {
-        Artist artist = ArtistDAO.getArtist(mbid);
+        ArtistSearcher artistSearcher = new ArtistSearcher();
+        Artist artist = artistSearcher.get(mbid);
         model.addAttribute("artist", artist);
 
-        SetlistQueryBuilder queryBuilder = new SetlistQueryBuilder.Builder().artistMbid(mbid).build();
-        List<Setlist> setlists = SetlistDAO.search(queryBuilder);
-        model.addAttribute("setlists", setlists);
+        SetlistQueryBuilder queryBuilder = new SetlistQueryBuilder.Builder()
+                .artistMbid(mbid)
+                .build();
+
+        SetlistSearcher setlistSearcher = new SetlistSearcher();
+        SetlistList setlistList = setlistSearcher.searchAndGet(queryBuilder, 1);
+        model.addAttribute("setlistList", setlistList);
 
         return "artist";
     }

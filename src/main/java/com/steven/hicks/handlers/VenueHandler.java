@@ -1,7 +1,8 @@
 package com.steven.hicks.handlers;
 
 import com.steven.hicks.beans.Venue;
-import com.steven.hicks.logic.dao.VenueDAO;
+import com.steven.hicks.beans.VenueList;
+import com.steven.hicks.logic.dao.VenueSearcher;
 import com.steven.hicks.logic.queryBuilders.VenueQueryBuilder;
 import com.steven.hicks.searchForms.VenueSearchForm;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/venue")
@@ -36,10 +35,10 @@ public class VenueHandler
                 .name(searchForm.getName())
                 .build();
 
-        List<Venue> venueList = VenueDAO.search(builder);
+        VenueSearcher searcher = new VenueSearcher();
+        VenueList venueLists = searcher.searchAndGet(builder, 1);
 
-        model.addAttribute("venueList", venueList);
-
+        model.addAttribute("venueList", venueLists);
 
         return "venueSearchResults";
     }
@@ -47,7 +46,8 @@ public class VenueHandler
     @RequestMapping(method = RequestMethod.GET)
     public String venue(@RequestParam("id") String id, Model model)
     {
-        Venue venue = VenueDAO.getVenue(id);
+        VenueSearcher venueSearcher = new VenueSearcher();
+        Venue venue = venueSearcher.get(id);
 
         model.addAttribute("venue", venue);
 
