@@ -24,7 +24,7 @@ public class ArtistHandler implements IHandler
 {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@ModelAttribute("artistSearcher") ArtistSearchForm searchForm,
-                               BindingResult result, ModelMap model)
+                               BindingResult result, ModelMap model, @RequestParam(name = "pageNumber") int pageNumber)
     {
         //:todo make search error page
         if (result.hasErrors())

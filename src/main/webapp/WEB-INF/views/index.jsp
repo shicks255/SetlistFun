@@ -10,7 +10,7 @@
 <body>
 <h2>Artist Setlist Search</h2>
 
-<form:form method="get" modelAttribute="artistSearcher" action="/artist/search">
+<form:form method="get"  modelAttribute="artistSearcher" action="/artist/search">
     <table>
         <tr>
             <td><form:label path="name">Artist Name:</form:label></td>
