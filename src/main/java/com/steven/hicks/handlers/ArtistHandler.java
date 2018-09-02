@@ -24,7 +24,7 @@ public class ArtistHandler implements IHandler
 {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@ModelAttribute("artistSearcher") ArtistSearchForm searchForm,
-                               BindingResult result, ModelMap model, @RequestParam(name = "pageNumber") int pageNumber)
+                               BindingResult result, ModelMap model)
     {
         //:todo make search error page
         if (result.hasErrors())
@@ -37,7 +37,7 @@ public class ArtistHandler implements IHandler
                 .build();
 
         ArtistSearcher searcher = new ArtistSearcher();
-        ArtistList artistList = searcher.searchAndGet(queryBuilder, 1);
+        ArtistList artistList = searcher.searchAndGet(queryBuilder, searchForm.getPageNumber());
 
         model.addAttribute("artistList", artistList);
 

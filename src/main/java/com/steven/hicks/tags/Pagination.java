@@ -1,6 +1,7 @@
 package com.steven.hicks.tags;
 
 import com.steven.hicks.beans.ItemList;
+import com.steven.hicks.searchForms.ArtistSearchForm;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -9,6 +10,7 @@ import java.io.IOException;
 public class Pagination extends TagSupport
 {
     private ItemList listItem;
+    private ArtistSearchForm m_searchForm;
 
     @Override
     public int doStartTag()
@@ -25,7 +27,7 @@ public class Pagination extends TagSupport
             for (int i = 1; i <= totalPages; i++)
             {
                 if (i == listItem.getPage())
-                    out.print("<b>" + i + "</b>");
+                    out.print("<b><a href=\"" + pageContext.getServletContext().getContextPath() + "artist/search""" + i + "</a></b>");
                 else
                     out.print(i);
             }
@@ -44,9 +46,15 @@ public class Pagination extends TagSupport
     }
 
 
+    public ArtistSearchForm getSearchForm()
+    {
+        return m_searchForm;
+    }
 
-
-
+    public void setSearchForm(ArtistSearchForm searchForm)
+    {
+        m_searchForm = searchForm;
+    }
 
     public ItemList getListItem()
     {

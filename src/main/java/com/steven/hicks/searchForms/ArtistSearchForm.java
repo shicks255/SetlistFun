@@ -10,6 +10,7 @@ public class ArtistSearchForm implements SearchForm
     private String mbId = "";
     private String tmId = "";
     private String sort = "";
+    private Integer pageNumber = 1;
 
 
     public ArtistQueryBuilder getQueryBuilder()
@@ -60,5 +61,15 @@ public class ArtistSearchForm implements SearchForm
     public void setSort(String sort)
     {
         this.sort = sort;
+    }
+
+    public Integer getPageNumber()
+    {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber)
+    {
+        this.pageNumber = pageNumber;
     }
 }
