@@ -27,7 +27,7 @@ public class Pagination extends TagSupport
             for (int i = 1; i <= totalPages; i++)
             {
                 if (i == listItem.getPage())
-                    out.print("<b><a href=\"" + pageContext.getServletContext().getContextPath() + "artist/search""" + i + "</a></b>");
+                    out.print("<b><a href=\"" + pageContext.getServletContext().getContextPath() + "artist/search?pageNumber=" + i + "\">" + i + "</a></b>");
                 else
                     out.print(i);
             }

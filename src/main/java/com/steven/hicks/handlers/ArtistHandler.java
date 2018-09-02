@@ -8,12 +8,9 @@ import com.steven.hicks.logic.dao.ArtistSearcher;
 import com.steven.hicks.logic.dao.SetlistSearcher;
 import com.steven.hicks.logic.queryBuilders.ArtistQueryBuilder;
 import com.steven.hicks.logic.queryBuilders.SetlistQueryBuilder;
-import com.steven.hicks.searchForms.ArtistSearchForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,21 +20,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArtistHandler implements IHandler
 {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(@ModelAttribute("artistSearcher") ArtistSearchForm searchForm,
-                               BindingResult result, ModelMap model)
+    public String search(ModelMap model,
+                         @RequestParam(name = "artistName")String artistName,
+                         @RequestParam(name = "pageNumber", required = false) Integer pageNumber)
     {
-        //:todo make search error page
-        if (result.hasErrors())
-            return "searchError";
+        if (pageNumber == null)
+            pageNumber = 1;
 
         ArtistQueryBuilder queryBuilder = new ArtistQueryBuilder.Builder()
-                .artistName(searchForm.getName())
-                .mbId(searchForm.getMbId())
-                .tmId(searchForm.getTmId())
+                .artistName(artistName)
                 .build();
 
         ArtistSearcher searcher = new ArtistSearcher();
-        ArtistList artistList = searcher.searchAndGet(queryBuilder, searchForm.getPageNumber());
+        ArtistList artistList = searcher.searchAndGet(queryBuilder, pageNumber);
 
         model.addAttribute("artistList", artistList);
 
