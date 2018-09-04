@@ -1,27 +1,17 @@
 package com.steven.hicks.searchForms;
 
+import com.steven.hicks.beans.ArtistList;
 import com.steven.hicks.interfaces.SearchForm;
-import com.steven.hicks.logic.queryBuilders.ArtistQueryBuilder;
 
 public class ArtistSearchForm implements SearchForm
 {
-    private ArtistQueryBuilder m_queryBuilder;
+    private ArtistList m_artistList;
     private String name = "";
     private String mbId = "";
     private String tmId = "";
     private String sort = "";
     private Integer pageNumber = 1;
 
-
-    public ArtistQueryBuilder getQueryBuilder()
-    {
-        return m_queryBuilder;
-    }
-
-    public void setQueryBuilder(ArtistQueryBuilder queryBuilder)
-    {
-        m_queryBuilder = queryBuilder;
-    }
 
     public String getName()
     {
@@ -71,5 +61,15 @@ public class ArtistSearchForm implements SearchForm
     public void setPageNumber(Integer pageNumber)
     {
         this.pageNumber = pageNumber;
+    }
+
+    public ArtistList getArtistList()
+    {
+        return m_artistList;
+    }
+
+    public void setArtistList(ArtistList artistList)
+    {
+        m_artistList = artistList;
     }
 }

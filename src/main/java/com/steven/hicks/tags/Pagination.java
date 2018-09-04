@@ -27,13 +27,12 @@ public class Pagination extends TagSupport
             for (int i = 1; i <= totalPages; i++)
             {
                 if (i == listItem.getPage())
-                    out.print("<b><a href=\"" + pageContext.getServletContext().getContextPath() + "artist/search?pageNumber=" + i + "\">" + i + "</a></b>");
+                    out.print("<b><a href=/artist/changePage?pageNumber=" + i + ">" + i + "</a></b>");
                 else
-                    out.print(i);
+                    out.print("<a href=/artist/changePage?pageNumber=" + i + ">" + i + "</a>");
             }
 
             out.print(">>");
-
             out.flush();
         }
         catch (IOException e)
