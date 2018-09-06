@@ -18,7 +18,7 @@
         <td>City</td>
         <td>State</td>
     </tr>
-b
+
     <c:forEach var="setlist" items="${setlistList.setlist}">
         <tr>
             <td>
