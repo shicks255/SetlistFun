@@ -14,14 +14,16 @@
 <table>
 
     <tr>
+        <td></td>
         <td>Date</td>
         <td>Venue</td>
         <td>City</td>
         <td>State</td>
     </tr>
 
-    <c:forEach var="setlist" items="${setlistList.setlist}">
+    <c:forEach var="setlist" items="${setlistList.setlist}" varStatus="index">
         <tr>
+            <td>${index.count}</td>
             <td>
                 <a href="/setlist?id=${setlist.id}">
                     <c:out value="${setlist.eventDate}"/>
@@ -47,7 +49,7 @@
 
 </table>
 
-<smh:pagination listItem="${setlistList.setlist}"/>
+<%--<smh:pagination listItem="${setlistList.setlist}"/>--%>
 
 <br/>
 
