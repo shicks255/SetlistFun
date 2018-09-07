@@ -1,5 +1,6 @@
 package com.steven.hicks;
 
+import com.steven.hicks.beans.ArtistList;
 import com.steven.hicks.searchForms.ArtistSearchForm;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +19,12 @@ public class Controller
     }
 
     @ModelAttribute("artistSearchForm")
-    public ArtistSearchForm getSearchForm()
+    public ArtistSearchForm getArtistSearchForm()
     {
-        return new ArtistSearchForm();
+        ArtistSearchForm searchForm = new ArtistSearchForm();
+        searchForm.m_artistList = new ArtistList();
+        searchForm.m_artistList.setPage(1);
+        return searchForm;
     }
 
 }

@@ -21,7 +21,7 @@
     <c:forEach var="artist" items="${artistList.artist}">
         <tr>
             <td>
-                <a href="/artist?mbid=${artist.mbid}">
+                <a href="/artist?mbid=${artist.mbid}&setlistPageNumber=1">
                     <c:out value="${artist.name}"/>
                 </a>
             </td>
