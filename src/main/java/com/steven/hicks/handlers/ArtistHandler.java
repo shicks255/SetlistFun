@@ -74,7 +74,7 @@ public class ArtistHandler implements IHandler
         return "artist";
     }
 
-    @RequestMapping(value = "/changeArtistPage", method = RequestMethod.GET)
+    @RequestMapping(value = "/changeSetlistPage", method = RequestMethod.GET)
     public RedirectView changeSetlistPage(@RequestParam(name = "mbid") String mbid,
                                           @ModelAttribute("setlistSearchForm") SetlistSearchForm setlistSearchForm,
                                           @RequestParam(name = "pageNumber") int pageNumber)
