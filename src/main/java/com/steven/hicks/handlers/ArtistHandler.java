@@ -10,18 +10,18 @@ import com.steven.hicks.logic.queryBuilders.SetlistQueryBuilder;
 import com.steven.hicks.searchForms.ArtistSearchForm;
 import com.steven.hicks.searchForms.SetlistSearchForm;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/artist")
-@SessionAttributes("artistSearchForm")
+@SessionAttributes(names = {"artistSearchForm", "setlistSearchForm"})
 public class ArtistHandler implements IHandler
 {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String listResults(ModelMap model, @ModelAttribute("artistSearchForm") ArtistSearchForm artistSearchForm)
+    public String listResults(ModelMap model,
+                              @ModelAttribute("artistSearchForm") ArtistSearchForm artistSearchForm)
     {
         ArtistQueryBuilder builder = new ArtistQueryBuilder.Builder()
                 .artistName(artistSearchForm.name)
@@ -55,32 +55,35 @@ public class ArtistHandler implements IHandler
 //   -------------Methods for the actual artist stuff
 
     @RequestMapping(method = RequestMethod.GET)
-    public String artist(@RequestParam(name = "mbid") String mbid,
+    public String artist(ModelMap model,
+                         @RequestParam(required = false, name = "mbid")String mbid,
                          @ModelAttribute("setlistSearchForm") SetlistSearchForm setlistSearchForm,
-                         Model model)
+                         @ModelAttribute("artistSearchForm") ArtistSearchForm artistSearchForm)
     {
+        if (mbid != null && mbid.length() > 0)
+            artistSearchForm.mbid = mbid;
+
         ArtistSearcher artistSearcher = new ArtistSearcher();
-        Artist artist = artistSearcher.get(mbid);
+        Artist artist = artistSearcher.get(artistSearchForm.mbid);
+
         model.addAttribute("artist", artist);
 
         SetlistQueryBuilder queryBuilder = new SetlistQueryBuilder.Builder()
-                .artistMbid(mbid)
+                .artistMbid(artist.getMbid())
                 .build();
 
         SetlistSearcher setlistSearcher = new SetlistSearcher();
-        SetlistList setlistList = setlistSearcher.searchAndGet(queryBuilder, setlistSearchForm.m_setlistList.getPage());
-        model.addAttribute("setlistList", setlistList);
+        setlistSearchForm.m_setlistList = setlistSearcher.searchAndGet(queryBuilder, setlistSearchForm.m_setlistList.getPage());
 
-        return "artist";
+        model.addAttribute("setlistList", setlistSearchForm.m_setlistList);
+        return "artistSetlistsResults";
     }
 
     @RequestMapping(value = "/changeSetlistPage", method = RequestMethod.GET)
-    public RedirectView changeSetlistPage(@RequestParam(name = "mbid") String mbid,
-                                          @ModelAttribute("setlistSearchForm") SetlistSearchForm setlistSearchForm,
+    public RedirectView changeSetlistPage(@ModelAttribute("setlistSearchForm") SetlistSearchForm setlistSearchForm,
                                           @RequestParam(name = "pageNumber") int pageNumber)
     {
         setlistSearchForm.m_setlistList.setPage(pageNumber);
-
         return new RedirectView("/artist");
     }
 
@@ -92,5 +95,4 @@ public class ArtistHandler implements IHandler
         searchForm.m_setlistList.setPage(1);
         return searchForm;
     }
-
 }

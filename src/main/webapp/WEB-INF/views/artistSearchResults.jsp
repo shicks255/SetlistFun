@@ -31,7 +31,7 @@
 
 </table>
 
-<sh:pagination listItem="${artistList}"/>
+<sh:pagination searchForm="${artistSearchForm}" listItem="${artistList}"/>
 
 <br/>
 

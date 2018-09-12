@@ -49,7 +49,7 @@
 
 </table>
 
-<%--<smh:pagination listItem="${setlistList.setlist}"/>--%>
+<smh:pagination searchForm="${setlistSearchForm}" listItem="${setlistList}"/>
 
 <br/>
 

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Pagination extends TagSupport
 {
-    private ItemList listItem;
+    private ItemList m_listItem;
     private SearchForm m_searchForm;
 
     @Override
@@ -20,15 +20,15 @@ public class Pagination extends TagSupport
 
         try(JspWriter out = pageContext.getOut())
         {
-            int numberOfItems = listItem.getTotal();
-            int itemsPerPage = listItem.getItemsPerPage();
+            int numberOfItems = m_listItem.getTotal();
+            int itemsPerPage = m_listItem.getItemsPerPage();
             int totalPages = numberOfItems / itemsPerPage;
 
             out.print("<<");
 
             for (int i = 1; i <= totalPages; i++)
             {
-                if (i == listItem.getPage())
+                if (i == m_listItem.getPage())
                 {
                     if (m_searchForm instanceof ArtistSearchForm)
                         out.print("<b><a href=/artist/changePage?pageNumber=" + i + ">" + i + "</a></b>");
@@ -52,7 +52,6 @@ public class Pagination extends TagSupport
 
         }
 
-
         return SKIP_BODY;
     }
 
@@ -69,11 +68,11 @@ public class Pagination extends TagSupport
 
     public ItemList getListItem()
     {
-        return listItem;
+        return m_listItem;
     }
 
     public void setListItem(ItemList listItem)
     {
-        this.listItem = listItem;
+        m_listItem = listItem;
     }
 }
