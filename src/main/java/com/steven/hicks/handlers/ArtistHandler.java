@@ -22,13 +22,13 @@ public class ArtistHandler implements IHandler
                               @ModelAttribute("searchForm") SearchFormImp searchForm)
     {
         ArtistQueryBuilder builder = new ArtistQueryBuilder.Builder()
-                .artistName(searchForm.m_artistSearchForm.name)
+                .artistName(searchForm.getArtistSearchForm().getName())
                 .build();
 
         ArtistSearcher searcher = new ArtistSearcher();
-        searchForm.m_artistSearchForm.m_artistList = searcher.searchAndGet(builder, searchForm.m_artistSearchForm.m_artistList.getPage());
+        searchForm.getArtistSearchForm().setArtistList(searcher.searchAndGet(builder, searchForm.getArtistSearchForm().getArtistList().getPage()));
 
-        model.addAttribute("artistList", searchForm.m_artistSearchForm.m_artistList);
+        model.addAttribute("searchForm", searchForm);
         return "artistSearchResults";
     }
 
@@ -36,7 +36,7 @@ public class ArtistHandler implements IHandler
     public RedirectView search(@RequestParam(name = "artistName")String artistName,
                                @ModelAttribute("searchForm") SearchFormImp searchForm)
     {
-        searchForm.m_artistSearchForm.name = artistName;
+        searchForm.getArtistSearchForm().setName(artistName);
         return new RedirectView("/artist/list");
     }
 
@@ -45,7 +45,7 @@ public class ArtistHandler implements IHandler
             @RequestParam(name = "pageNumber")int pageNumber,
             @ModelAttribute("searchForm") SearchFormImp searchForm)
     {
-        searchForm.m_artistSearchForm.m_artistList.setPage(pageNumber);
+        searchForm.getArtistSearchForm().getArtistList().setPage(pageNumber);
         return new RedirectView("/artist/list");
     }
 
@@ -58,10 +58,10 @@ public class ArtistHandler implements IHandler
                          @ModelAttribute("searchForm") SearchFormImp searchForm)
     {
         if (mbid != null && mbid.length() > 0)
-            searchForm.m_artistSearchForm.mbid = mbid;
+            searchForm.getArtistSearchForm().setMbid(mbid);
 
         ArtistSearcher artistSearcher = new ArtistSearcher();
-        Artist artist = artistSearcher.get(searchForm.m_artistSearchForm.mbid);
+        Artist artist = artistSearcher.get(searchForm.getArtistSearchForm().getMbid());
 
         model.addAttribute("artist", artist);
 
@@ -70,9 +70,9 @@ public class ArtistHandler implements IHandler
                 .build();
 
         SetlistSearcher setlistSearcher = new SetlistSearcher();
-        searchForm.m_setlistSearchForm.m_setlistList = setlistSearcher.searchAndGet(queryBuilder, searchForm.m_setlistSearchForm.m_setlistList.getPage());
+        searchForm.getSetlistSearchForm().setSetlistList(setlistSearcher.searchAndGet(queryBuilder, searchForm.getSetlistSearchForm().getSetlistList().getPage()));
 
-        model.addAttribute("setlistList", searchForm.m_setlistSearchForm.m_setlistList);
+        model.addAttribute("setlistList", searchForm.getSetlistSearchForm().getSetlistList());
         return "artistSetlistsResults";
     }
 
@@ -80,7 +80,7 @@ public class ArtistHandler implements IHandler
     public RedirectView changeSetlistPage(@ModelAttribute("searchForm") SearchFormImp searchForm,
                                           @RequestParam(name = "pageNumber") int pageNumber)
     {
-        searchForm.m_setlistSearchForm.m_setlistList.setPage(pageNumber);
+        searchForm.getSetlistSearchForm().getSetlistList().setPage(pageNumber);
         return new RedirectView("/artist");
     }
 

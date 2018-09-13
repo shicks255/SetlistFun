@@ -6,8 +6,8 @@ import com.steven.hicks.logic.queryBuilders.SetlistQueryBuilder;
 
 public class SetlistSearchForm implements SearchForm
 {
-    public SetlistList m_setlistList;
-    public SetlistQueryBuilder m_queryBuilder;
+    private SetlistList m_setlistList;
+    private SetlistQueryBuilder m_queryBuilder;
 
     public SetlistSearchForm()
     {
@@ -15,4 +15,23 @@ public class SetlistSearchForm implements SearchForm
         m_setlistList.setPage(1);
     }
 
+    public SetlistList getSetlistList()
+    {
+        return m_setlistList;
+    }
+
+    public void setSetlistList(SetlistList setlistList)
+    {
+        m_setlistList = setlistList;
+    }
+
+    public SetlistQueryBuilder getQueryBuilder()
+    {
+        return m_queryBuilder;
+    }
+
+    public void setQueryBuilder(SetlistQueryBuilder queryBuilder)
+    {
+        m_queryBuilder = queryBuilder;
+    }
 }

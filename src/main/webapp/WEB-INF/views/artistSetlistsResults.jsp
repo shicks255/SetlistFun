@@ -5,11 +5,11 @@
 
 <html>
 <head>
-    <title>${artist.name} Setlists</title>
+    <title>${searchForm.artistSearchForm.name} Setlists</title>
 </head>
 
 <body>
-<h2>${artist.name} Setlists</h2>
+<h2>${searchForm.artistSearchForm.name} Setlists</h2>
 
 <table>
 
@@ -21,7 +21,7 @@
         <td>State</td>
     </tr>
 
-    <c:forEach var="setlist" items="${setlistList.setlist}" varStatus="index">
+    <c:forEach var="setlist" items="${searchForm.setlistSearchForm.setlistList.setlist}" varStatus="index">
         <tr>
             <td>${index.count}</td>
             <td>
@@ -49,7 +49,7 @@
 
 </table>
 
-<smh:pagination searchForm="${setlistSearchForm}" listItem="${setlistList}"/>
+<smh:pagination searchForm="${searchForm.setlistSearchForm}" listItem="${searchForm.setlistSearchForm.setlistList}"/>
 
 <br/>
 

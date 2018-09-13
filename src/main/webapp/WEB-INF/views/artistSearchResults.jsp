@@ -18,7 +18,7 @@
         <td>Stuff</td>
     </tr>
 
-    <c:forEach var="artist" items="${artistList.artist}">
+    <c:forEach var="artist" items="${searchForm.artistSearchForm.artistList.artist}">
         <tr>
             <td>
                 <a href="/artist?mbid=${artist.mbid}&setlistPageNumber=1">
@@ -31,7 +31,7 @@
 
 </table>
 
-<sh:pagination searchForm="${artistSearchForm}" listItem="${artistList}"/>
+<sh:pagination searchForm="${searchForm.artistSearchForm}" listItem="${searchForm.artistSearchForm.artistList}"/>
 
 <br/>
 
