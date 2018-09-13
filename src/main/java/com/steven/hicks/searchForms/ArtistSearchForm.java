@@ -15,4 +15,10 @@ public class ArtistSearchForm implements SearchForm
     public String mbid = "";
     public String name = "";
 
+    public ArtistSearchForm()
+    {
+        m_artistList = new ArtistList();
+        m_artistList.setPage(1);
+    }
+
 }

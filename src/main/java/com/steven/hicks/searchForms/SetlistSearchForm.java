@@ -8,4 +8,11 @@ public class SetlistSearchForm implements SearchForm
 {
     public SetlistList m_setlistList;
     public SetlistQueryBuilder m_queryBuilder;
+
+    public SetlistSearchForm()
+    {
+        m_setlistList = new SetlistList();
+        m_setlistList.setPage(1);
+    }
+
 }
