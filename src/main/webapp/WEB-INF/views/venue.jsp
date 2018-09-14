@@ -24,10 +24,14 @@
     <c:forEach var="venueSetlist" items="${searchForm.setlistSearchForm.setlistList.setlist}">
         <tr>
             <td>
-                <c:out value="${venueSetlist.artist.name}"/>
+                <a href="/setlist?id=${venueSetlist.id}">
+                    <c:out value="${venueSetlist.eventDate}"/>
+                </a>
             </td>
             <td>
-                <c:out value="${venueSetlist.eventDate}"/>
+                <a href="/artist?mbid=${venueSetlist.artist.mbid}">
+                    <c:out value="${venueSetlist.artist.name}"/>
+                </a>
             </td>
             <td>
                 <fmt:formatNumber value="${venueSetlist.sets.size()}"/>
