@@ -23,6 +23,11 @@ public class ArtistSearchForm implements SearchForm
 
     public ArtistList getArtistList()
     {
+        if (m_artistList == null)
+        {
+            m_artistList = new ArtistList();
+            m_artistList.setPage(1);
+        }
         return m_artistList;
     }
 

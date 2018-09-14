@@ -22,11 +22,12 @@
     </tr>
 
     <c:forEach var="setlist" items="${searchForm.setlistSearchForm.setlistList.setlist}" varStatus="index">
+        <c:set var="date" value="${setlist.eventDate}"/>
         <tr>
             <td>${index.count}</td>
             <td>
                 <a href="/setlist?id=${setlist.id}">
-                    <c:out value="${setlist.eventDate}"/>
+                    ${date.monthValue}/${date.dayOfMonth}/${date.year}
                 </a>
             </td>
             <td>

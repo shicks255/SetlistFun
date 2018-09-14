@@ -17,6 +17,12 @@ public class SetlistSearchForm implements SearchForm
 
     public SetlistList getSetlistList()
     {
+        if (m_setlistList == null)
+        {
+            m_setlistList = new SetlistList();
+            m_setlistList.setPage(1);
+        }
+
         return m_setlistList;
     }
 
